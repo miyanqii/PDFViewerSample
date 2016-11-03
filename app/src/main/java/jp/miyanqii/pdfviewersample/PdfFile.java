@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * 
+ *
  * Created by miyaki on 16/09/19.
  */
 public class PdfFile implements Parcelable {
