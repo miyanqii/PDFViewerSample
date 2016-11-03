@@ -1,25 +1,21 @@
 package jp.miyanqii.pdfviewersample;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+import de.psdev.licensesdialog.LicensesDialog;
+
+public class MainActivity extends AppCompatActivity {
 
     public static final String EXTRA_SELECTED_PDF = "EXTRA_SELECTED_PDF";
     private RecyclerView.Adapter mRecyclerViewAdapter;
@@ -34,30 +30,12 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-
-        mPdfFiles = new ArrayList<PdfFile>();
-        mPdfFiles.add(new PdfFile("sample.pdf", "SAMPLE PDF", 0));
+        mPdfFiles = new ArrayList<>();
+        mPdfFiles.add(new PdfFile("kawaraban_201611.pdf", "サンプル1", "サブタイトル1"));
+        mPdfFiles.add(new PdfFile("sample.pdf", "サンプル2", "サブタイトル2"));
+        mPdfFiles.add(new PdfFile("sample.pdf", "サンプル3", "サブタイトル3"));
 
         mRecyclerView = (RecyclerView) findViewById(R.id.main_recycler_view);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerViewAdapter = new MainActivityRecyclerViewAdapter(mPdfFiles, new MainActivityRecyclerViewAdapter.MainActivityRecyclerViewInteractionListener() {
             @Override
             public void onSeeDetail(PdfFile pdfFile) {
@@ -65,22 +43,14 @@ public class MainActivity extends AppCompatActivity
                 Intent intent = new Intent();
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra(EXTRA_SELECTED_PDF, pdfFile);
-                intent.setClass(MainActivity.this, PdfViewerActivity.class);
+                intent.setClass(MainActivity.this, PdfActivity.class);
                 startActivity(intent);
 
             }
         });
+        mRecyclerView.setAdapter(mRecyclerViewAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-    }
-
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
     }
 
     @Override
@@ -97,36 +67,31 @@ public class MainActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_about_this_app) {
+            new AlertDialog.Builder(this).setTitle(getString(R.string.app_name)).setMessage(" Version " + BuildConfig.VERSION_NAME)
+                    .setCancelable(true)
+                    .setOnCancelListener(new DialogInterface.OnCancelListener() {
+                        @Override
+                        public void onCancel(DialogInterface dialogInterface) {
+                            dialogInterface.dismiss();
+                        }
+                    }).setNeutralButton("Close", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                }
+            }).create().show();
+        }
+        if (id == R.id.action_licenses) {
+            new LicensesDialog.Builder(this)
+                    .setNotices(R.raw.notices)
+                    .setIncludeOwnLicense(true)
+                    .build()
+                    .show();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
 }

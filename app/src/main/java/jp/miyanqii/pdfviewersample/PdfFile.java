@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
+ * 
  * Created by miyaki on 16/09/19.
  */
 public class PdfFile implements Parcelable {
@@ -20,25 +21,29 @@ public class PdfFile implements Parcelable {
     };
     private String fileName;
     private String title;
-    private int order;
+    private String subTitle;
 
-    public PdfFile(String fileName, String title, int order) {
+    public PdfFile(String fileName, String title, String subTitle) {
         this.fileName = fileName;
-        this.order = order;
         this.title = title;
+        this.subTitle = subTitle;
     }
 
     protected PdfFile(Parcel in) {
         fileName = in.readString();
         title = in.readString();
-        order = in.readInt();
+        subTitle = in.readString();
+    }
+
+    public String getSubTitle() {
+        return subTitle;
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(fileName);
         dest.writeString(title);
-        dest.writeInt(order);
+        dest.writeString(subTitle);
     }
 
     @Override
@@ -51,7 +56,7 @@ public class PdfFile implements Parcelable {
         return "PdfFile{" +
                 "fileName='" + fileName + '\'' +
                 ", title='" + title + '\'' +
-                ", order='" + order + '\'' +
+                ", subTitle='" + subTitle + '\'' +
                 '}';
     }
 
@@ -61,9 +66,5 @@ public class PdfFile implements Parcelable {
 
     public String getTitle() {
         return title;
-    }
-
-    public int getOrder() {
-        return order;
     }
 }

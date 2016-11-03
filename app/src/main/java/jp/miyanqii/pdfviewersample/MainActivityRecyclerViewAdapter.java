@@ -1,22 +1,25 @@
 package jp.miyanqii.pdfviewersample;
 
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 /**
+ *
  * Created by miyaki on 16/09/19.
  */
 public class MainActivityRecyclerViewAdapter extends RecyclerView.Adapter {
 
-    ArrayList<PdfFile> mPdfFiles;
-    MainActivityRecyclerViewInteractionListener mListener;
+    private ArrayList<PdfFile> mPdfFiles;
+    private MainActivityRecyclerViewInteractionListener mListener;
 
-    public MainActivityRecyclerViewAdapter(ArrayList<PdfFile> pdfFiles, MainActivityRecyclerViewInteractionListener listener) {
+    MainActivityRecyclerViewAdapter(ArrayList<PdfFile> pdfFiles, MainActivityRecyclerViewInteractionListener listener) {
         mPdfFiles = pdfFiles;
         mListener = listener;
     }
@@ -24,7 +27,7 @@ public class MainActivityRecyclerViewAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_main, parent);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_main, parent, false);
 
         return new ViewHolder(view);
     }
@@ -36,10 +39,11 @@ public class MainActivityRecyclerViewAdapter extends RecyclerView.Adapter {
 
         ViewHolder myHolder = (ViewHolder) holder;
 
+        myHolder.mBaseLinearLayout.setTag(pdfFile);
         myHolder.mTitleTextView.setText(pdfFile.getTitle());
-        myHolder.mTitleTextView.setTag(pdfFile);
+        myHolder.mSubTitleTextView.setText(pdfFile.getSubTitle());
 
-        myHolder.mTitleTextView.setOnClickListener(new View.OnClickListener() {
+        myHolder.mBaseLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (mListener != null) {
@@ -55,18 +59,24 @@ public class MainActivityRecyclerViewAdapter extends RecyclerView.Adapter {
         return mPdfFiles.size();
     }
 
-    public interface MainActivityRecyclerViewInteractionListener {
+    interface MainActivityRecyclerViewInteractionListener {
         void onSeeDetail(PdfFile pdfFile);
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    private class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView mTitleTextView;
+        TextView mSubTitleTextView;
+        CardView mCardView;
+        LinearLayout mBaseLinearLayout;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
 
+            mBaseLinearLayout = (LinearLayout) itemView.findViewById(R.id.base_linear);
+//            mCardView = (CardView) itemView.findViewById(R.id.cardview);
             mTitleTextView = (TextView) itemView.findViewById(R.id.pdf_title);
+            mSubTitleTextView = (TextView) itemView.findViewById(R.id.pdf_subtitle);
         }
     }
 
