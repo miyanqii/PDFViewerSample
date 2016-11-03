@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -38,16 +37,11 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 //        mPdfFiles = new ArrayList<>();
-//        mPdfFiles.add(new PdfFile("kawaraban_201611.pdf", "サンプル1", "サブタイトル1"));
-//        mPdfFiles.add(new PdfFile("sample.pdf", "サンプル2", "サブタイトル2"));
-//        mPdfFiles.add(new PdfFile("sample.pdf", "サンプル3", "サブタイトル3"));
+//        mPdfFiles.add(new PdfFile("sample.pdf", "サンプル1", "サブタイトル1"));
 
         String json = loadJSONFromAsset();
-
         mPdfFiles = new Gson().fromJson(json, new TypeToken<List<PdfFile>>() {
         }.getType());
-
-        Log.d(getClass().getName(), new Gson().toJson(mPdfFiles));
 
         mRecyclerView = (RecyclerView) findViewById(R.id.main_recycler_view);
         mRecyclerViewAdapter = new MainActivityRecyclerViewAdapter(mPdfFiles, new MainActivityRecyclerViewAdapter.MainActivityRecyclerViewInteractionListener() {
@@ -108,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public String loadJSONFromAsset() {
+    private String loadJSONFromAsset() {
         String json = null;
         try {
             InputStream is = getAssets().open("files.json");
