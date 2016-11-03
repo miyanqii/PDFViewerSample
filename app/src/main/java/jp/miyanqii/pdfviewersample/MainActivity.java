@@ -24,10 +24,14 @@ import de.psdev.licensesdialog.LicensesDialog;
 public class MainActivity extends AppCompatActivity {
 
     public static final String EXTRA_SELECTED_PDF = "EXTRA_SELECTED_PDF";
+    private static final String INSTANCESTATE_PDFFILES = "INSTANCESTATE_PDFFILES";
+    private static final String INSTANCESTATE_LIST_POSITION = "INSTANCESTATE_LIST_POSITION";
     private RecyclerView.Adapter mRecyclerViewAdapter;
     private RecyclerView mRecyclerView;
+    private LinearLayoutManager mLinearLayoutManager;
 
     private ArrayList<PdfFile> mPdfFiles;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +43,13 @@ public class MainActivity extends AppCompatActivity {
 //        mPdfFiles = new ArrayList<>();
 //        mPdfFiles.add(new PdfFile("sample.pdf", "サンプル1", "サブタイトル1"));
 
-        String json = loadJSONFromAsset();
-        mPdfFiles = new Gson().fromJson(json, new TypeToken<List<PdfFile>>() {
-        }.getType());
+        if (savedInstanceState != null) {
+            mPdfFiles = savedInstanceState.getParcelableArrayList(INSTANCESTATE_PDFFILES);
+        } else {
+            String json = loadJSONFromAsset();
+            mPdfFiles = new Gson().fromJson(json, new TypeToken<List<PdfFile>>() {
+            }.getType());
+        }
 
         mRecyclerView = (RecyclerView) findViewById(R.id.main_recycler_view);
         mRecyclerViewAdapter = new MainActivityRecyclerViewAdapter(mPdfFiles, new MainActivityRecyclerViewAdapter.MainActivityRecyclerViewInteractionListener() {
@@ -57,7 +65,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         mRecyclerView.setAdapter(mRecyclerViewAdapter);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mLinearLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLinearLayoutManager);
+
+        if (savedInstanceState != null) {
+            mLinearLayoutManager.scrollToPosition(savedInstanceState.getInt(INSTANCESTATE_LIST_POSITION));
+        }
 
     }
 
@@ -118,4 +131,21 @@ public class MainActivity extends AppCompatActivity {
         return json;
     }
 
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if (savedInstanceState != null) {
+            mPdfFiles = savedInstanceState.getParcelableArrayList(INSTANCESTATE_PDFFILES);
+        }
+        if (savedInstanceState != null && mLinearLayoutManager != null) {
+            mLinearLayoutManager.scrollToPosition(savedInstanceState.getInt(INSTANCESTATE_LIST_POSITION));
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList(INSTANCESTATE_PDFFILES, mPdfFiles);
+        outState.putInt(INSTANCESTATE_LIST_POSITION, mLinearLayoutManager.findFirstVisibleItemPosition());
+    }
 }

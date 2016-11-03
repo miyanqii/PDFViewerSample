@@ -7,12 +7,6 @@
         <license>Apache Software License 2.0</license>
     </notice>
     <notice>
-        <name>LicensesDialog</name>
-        <url>https://github.com/PSDev/LicensesDialog</url>
-        <copyright>Copyright 2013-2016 Philip Schiffer</copyright>
-        <license>Apache Software License 2.0</license>
-    </notice>
-    <notice>
         <name>google-gson</name>
         <url>https://github.com/google/gson</url>
         <copyright>Copyright 2008 Google Inc.</copyright>
