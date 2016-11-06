@@ -1,4 +1,4 @@
-package jp.miyanqii.pdfviewersample;
+package jp.miyanqii.simplepdfviewer;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,7 +29,7 @@ public class PdfActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         if (intent != null) {
-            mPdfFile = (PdfFile) intent.getParcelableExtra(MainActivity.EXTRA_SELECTED_PDF);
+            mPdfFile = (PdfFile) intent.getParcelableExtra(PdfListActivity.EXTRA_SELECTED_PDF);
             getSupportActionBar().setTitle(mPdfFile.getTitle());
 //            getSupportActionBar().setSubtitle(mPdfFile.getSubTitle());
 

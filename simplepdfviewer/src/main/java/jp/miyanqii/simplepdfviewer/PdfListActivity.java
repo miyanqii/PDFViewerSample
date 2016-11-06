@@ -1,4 +1,4 @@
-package jp.miyanqii.pdfviewersample;
+package jp.miyanqii.simplepdfviewer;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,7 +21,7 @@ import java.util.List;
 
 import de.psdev.licensesdialog.LicensesDialog;
 
-public class MainActivity extends AppCompatActivity {
+public class PdfListActivity extends AppCompatActivity {
 
     public static final String EXTRA_SELECTED_PDF = "EXTRA_SELECTED_PDF";
     private static final String INSTANCESTATE_PDFFILES = "INSTANCESTATE_PDFFILES";
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_pdf_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -52,14 +52,14 @@ public class MainActivity extends AppCompatActivity {
         }
 
         mRecyclerView = (RecyclerView) findViewById(R.id.main_recycler_view);
-        mRecyclerViewAdapter = new MainActivityRecyclerViewAdapter(mPdfFiles, new MainActivityRecyclerViewAdapter.MainActivityRecyclerViewInteractionListener() {
+        mRecyclerViewAdapter = new PdfListRecyclerViewAdapter(mPdfFiles, new PdfListRecyclerViewAdapter.MainActivityRecyclerViewInteractionListener() {
             @Override
             public void onSeeDetail(PdfFile pdfFile) {
 
                 Intent intent = new Intent();
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra(EXTRA_SELECTED_PDF, pdfFile);
-                intent.setClass(MainActivity.this, PdfActivity.class);
+                intent.setClass(PdfListActivity.this, PdfActivity.class);
                 startActivity(intent);
 
             }
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.menu_pdf_list, menu);
         return true;
     }
 

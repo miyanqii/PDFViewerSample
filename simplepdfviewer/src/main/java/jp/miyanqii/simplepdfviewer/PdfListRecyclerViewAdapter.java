@@ -1,4 +1,4 @@
-package jp.miyanqii.pdfviewersample;
+package jp.miyanqii.simplepdfviewer;
 
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -14,12 +14,12 @@ import java.util.ArrayList;
  *
  * Created by miyaki on 16/09/19.
  */
-public class MainActivityRecyclerViewAdapter extends RecyclerView.Adapter {
+public class PdfListRecyclerViewAdapter extends RecyclerView.Adapter {
 
     private ArrayList<PdfFile> mPdfFiles;
     private MainActivityRecyclerViewInteractionListener mListener;
 
-    MainActivityRecyclerViewAdapter(ArrayList<PdfFile> pdfFiles, MainActivityRecyclerViewInteractionListener listener) {
+    PdfListRecyclerViewAdapter(ArrayList<PdfFile> pdfFiles, MainActivityRecyclerViewInteractionListener listener) {
         mPdfFiles = pdfFiles;
         mListener = listener;
     }

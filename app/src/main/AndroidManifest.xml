@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name="jp.miyanqii.simplepdfviewer.PdfListActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -19,9 +19,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".PdfActivity"
+            android:name="jp.miyanqii.simplepdfviewer.PdfActivity"
             android:label="@string/app_name"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName="jp.miyanqii.simplepdfviewer.PdfListActivity"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 

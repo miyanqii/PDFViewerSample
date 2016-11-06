@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="jp.miyanqii.pdfviewersample.PdfActivity"
+    tools:context="jp.miyanqii.pdfviewersample.jp.miyanqii.simplepdfviewer.PdfActivity"
     tools:showIn="@layout/activity_pdf">
 
     <com.github.barteksc.pdfviewer.PDFView
