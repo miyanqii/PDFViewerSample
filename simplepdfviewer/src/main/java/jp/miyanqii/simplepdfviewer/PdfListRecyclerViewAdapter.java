@@ -1,6 +1,5 @@
 package jp.miyanqii.simplepdfviewer;
 
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -67,14 +66,12 @@ public class PdfListRecyclerViewAdapter extends RecyclerView.Adapter {
 
         TextView mTitleTextView;
         TextView mSubTitleTextView;
-        CardView mCardView;
         LinearLayout mBaseLinearLayout;
 
         ViewHolder(View itemView) {
             super(itemView);
 
             mBaseLinearLayout = (LinearLayout) itemView.findViewById(R.id.base_linear);
-//            mCardView = (CardView) itemView.findViewById(R.id.cardview);
             mTitleTextView = (TextView) itemView.findViewById(R.id.pdf_title);
             mSubTitleTextView = (TextView) itemView.findViewById(R.id.pdf_subtitle);
         }
