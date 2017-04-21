@@ -1,9 +1,9 @@
 general:
   artifacts:
-    - ./app/build/outputs/apk/
+    - app/build/outputs/apk/
 machine:
   java:
-    version: oepnjdk7
+    version: oepnjdk8
   environment:
     ANDROID_HOME: /usr/local/android-sdk-linux
 test:
