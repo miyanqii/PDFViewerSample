@@ -3,7 +3,7 @@ general:
     - "app/build/outputs/apk/app-debug.apk"
 machine:
   java:
-    version: oepnjdk8
+    version: oraclejdk8
   environment:
     ANDROID_HOME: /usr/local/android-sdk-linux
 test:
