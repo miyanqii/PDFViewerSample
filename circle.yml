@@ -1,7 +1,4 @@
 general:
-  branches:
-    only:
-      - master
   artifacts:
     - "app/build/outputs/apk/app-debug.apk"
 machine:
@@ -10,9 +7,5 @@ machine:
   environment:
     ANDROID_HOME: /usr/local/android-sdk-linux
 test:
-  pre:
-    - echo "-----start test-----"
   override:
     - echo "Nothing to do here"
-  post:
-    - echo "-----end test-----"
