@@ -1,0 +1,21 @@
+general:
+  artifacts:
+    - ./app/build/outputs/apk/
+machine:
+  java:
+    version: oraclejdk7
+  environment:
+    ANDROID_HOME: /usr/local/android-sdk-linux
+test:
+  override:
+    - echo "Nothing to do here"
+  post:
+    - ./gradlew compileDevelopReleaseSources
+deployment:
+  upload:
+    branch: [master]
+    commands:
+      - ./gradlew assembleDevelopRelease
+      - ./gradlew uploadDeployGateDevelop
+      - ./gradlew assembleProductRelease
+      - ./gradlew uploadDeployGateProduct
