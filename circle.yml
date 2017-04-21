@@ -1,6 +1,9 @@
 general:
+  branches:
+    only:
+      - master
   artifacts:
-    - app/build/outputs/apk/
+    - "app/build/outputs/apk/app-debug.apk"
 machine:
   java:
     version: oepnjdk8
@@ -11,11 +14,3 @@ test:
     - echo "Nothing to do here"
   post:
     - ./gradlew compileDevelopReleaseSources
-deployment:
-  upload:
-    branch: [master]
-    commands:
-      - ./gradlew assembleDevelopRelease
-      - ./gradlew uploadDeployGateDevelop
-      - ./gradlew assembleProductRelease
-      - ./gradlew uploadDeployGateProduct
