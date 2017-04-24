@@ -9,3 +9,8 @@ machine:
 test:
   override:
     - echo "Nothing to do here"
+deployment:
+  upload:
+    branch: [master]
+    commands:
+      - ./gradlew assembleDebug
