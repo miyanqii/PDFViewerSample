@@ -1,5 +1,5 @@
 # PDFViewerSample
-Sample implementation of PDF viewer
+Sample implementation of PDF viewer using AndroidPdfViewer
 
 This Sample is using the following:
 - AndroidPdfViewer https://github.com/barteksc/AndroidPdfViewer
